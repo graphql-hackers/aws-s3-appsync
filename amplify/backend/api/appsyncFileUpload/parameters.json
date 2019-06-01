@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "appsyncFileUpload",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authaws34d201c9",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

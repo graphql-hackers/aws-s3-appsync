@@ -1,0 +1,23 @@
+{
+	"auth": {
+		"aws34d201c9": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"api": {
+		"appsyncFileUpload": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"securityType": "AMAZON_COGNITO_USER_POOLS"
+			}
+		}
+	},
+	"storage": {
+		"s3ProjectImages": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}

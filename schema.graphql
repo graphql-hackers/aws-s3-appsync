@@ -1,0 +1,240 @@
+input CreateEndPointOperationInput {
+	endpoint: AWSURL!
+	query_string: String!
+	page: String
+	name: String
+	description: String
+}
+
+input CreateUserInput {
+	entity_id: ID!
+	name: String!
+	email: String!
+	organisation: String
+}
+
+input DeleteEndPointOperationInput {
+	id: ID!
+}
+
+input DeleteUserInput {
+	entity_id: ID!
+}
+
+type Mutation {
+	createEndPointOperation(input: CreateEndPointOperationInput!): endPointOperation
+	updateEndPointOperation(input: UpdateEndPointOperationInput!): endPointOperation
+	deleteEndPointOperation(input: DeleteEndPointOperationInput!): endPointOperation
+	createUser(input: CreateUserInput!): User
+	updateUser(input: UpdateUserInput!): User
+	deleteUser(input: DeleteUserInput!): User
+	executeGraphqlOperation(endPoint: String!, query: String!, operation: String): AWSJSON
+}
+
+type Query {
+	getEndPointOperation(id: ID!): endPointOperation
+	listEndPointOperations(filter: TableEndPointOperationFilterInput, limit: Int, nextToken: String): endPointOperationConnection
+	getUser(entity_id: ID!): User
+	listUsers(filter: TableUserFilterInput, limit: Int, nextToken: String): UserConnection
+	getIntrospectionSchema(endPoint: String!): AWSJSON
+}
+
+type Subscription {
+	onCreateEndPointOperation(
+		id: ID,
+		endpoint: AWSURL,
+		query_string: String,
+		page: String,
+		name: String
+	): endPointOperation
+		@aws_subscribe(mutations: ["createEndPointOperation"])
+	onUpdateEndPointOperation(
+		id: ID,
+		endpoint: AWSURL,
+		query_string: String,
+		page: String,
+		name: String
+	): endPointOperation
+		@aws_subscribe(mutations: ["updateEndPointOperation"])
+	onDeleteEndPointOperation(
+		id: ID,
+		endpoint: AWSURL,
+		query_string: String,
+		page: String,
+		name: String
+	): endPointOperation
+		@aws_subscribe(mutations: ["deleteEndPointOperation"])
+	onCreateUser(
+		entity_id: ID,
+		name: String,
+		email: String,
+		organisation: String
+	): User
+		@aws_subscribe(mutations: ["createUser"])
+	onUpdateUser(
+		entity_id: ID,
+		name: String,
+		email: String,
+		organisation: String
+	): User
+		@aws_subscribe(mutations: ["updateUser"])
+	onDeleteUser(
+		entity_id: ID,
+		name: String,
+		email: String,
+		organisation: String
+	): User
+		@aws_subscribe(mutations: ["deleteUser"])
+}
+
+input TableBooleanFilterInput {
+	ne: Boolean
+	eq: Boolean
+}
+
+input TableEndPointOperationFilterInput {
+	id: TableIDFilterInput
+	endpoint: TableStringFilterInput
+	page: TableStringFilterInput
+	name: TableStringFilterInput
+	description: TableStringFilterInput
+}
+
+input TableFloatFilterInput {
+	ne: Float
+	eq: Float
+	le: Float
+	lt: Float
+	ge: Float
+	gt: Float
+	contains: Float
+	notContains: Float
+	between: [Float]
+}
+
+input TableIDFilterInput {
+	ne: ID
+	eq: ID
+	le: ID
+	lt: ID
+	ge: ID
+	gt: ID
+	contains: ID
+	notContains: ID
+	between: [ID]
+	beginsWith: ID
+}
+
+input TableIntFilterInput {
+	ne: Int
+	eq: Int
+	le: Int
+	lt: Int
+	ge: Int
+	gt: Int
+	contains: Int
+	notContains: Int
+	between: [Int]
+}
+
+input TableStringFilterInput {
+	ne: String
+	eq: String
+	le: String
+	lt: String
+	ge: String
+	gt: String
+	contains: String
+	notContains: String
+	between: [String]
+	beginsWith: String
+}
+
+input TableUserFilterInput {
+	entity_id: TableIDFilterInput
+	name: TableStringFilterInput
+	email: TableStringFilterInput
+	organisation: TableStringFilterInput
+}
+
+input UpdateEndPointOperationInput {
+	id: ID!
+	endpoint: AWSURL
+	query_string: String
+	page: String
+	name: String
+	description: String
+}
+
+input UpdateUserInput {
+	entity_id: ID!
+	name: String
+	email: String
+	organisation: String
+}
+
+type User {
+	entity_id: ID
+	name: String!
+	email: String!
+	organisation: String
+}
+
+type UserConnection {
+	items: [User]
+	nextToken: String
+}
+
+type endPointOperation {
+	id: ID
+	endpoint: AWSURL!
+	query_string: String!
+	page: String
+	name: String
+	description: String
+}
+
+type endPointOperationConnection {
+	items: [endPointOperation]
+	nextToken: String
+}
+
+type Todo @model {
+    id: ID!
+    name: String!
+    description: String!
+    file: S3Object
+}
+
+type S3Object {
+    bucket: String!
+    key: String!
+    region: String!
+}
+
+input CreateTodoInput {
+  id: ID
+  name: String!
+  description: String
+  file: S3ObjectInput # This input type will be generated for you
+}
+
+type Todo @model {
+    id: ID!
+    name: String!
+    description: String!
+    file: S3Object
+}
+
+type S3Object {
+    bucket: String!
+    key: String!
+    region: String!
+}
+
+input CreateTodoInput {
+  id: ID
+  name: String!
+  description: String
+  file: S3ObjectInput # This input type will be generated for you
+}
